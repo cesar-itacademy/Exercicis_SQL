@@ -34,3 +34,20 @@ SELECT nombre FROM `fabricante` WHERE CHARACTER_LENGTH(nombre)=4;
 SELECT nombre FROM producto WHERE nombre LIKE '%Portátil%';
 SELECT nombre FROM producto WHERE nombre LIKE '%Monitor%' AND precio<215;
 SELECT nombre, precio FROM `producto` WHERE precio>=180 ORDER BY precio DESC, nombre ASC;
+
+
+###1.1.4 CONSULTAS MULTITABLA###
+
+SELECT producto.nombre, producto.precio, fabricante.nombre FROM `producto` INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.codigo;
+SELECT producto.nombre, producto.precio, fabricante.nombre FROM `producto` INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.codigo ORDER BY fabricante.nombre ASC;
+SELECT producto.codigo, producto.nombre, producto.codigo_fabricante, fabricante.nombre FROM `producto` INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.codigo;
+SELECT producto.nombre, producto.precio, fabricante.nombre FROM `producto` INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.codigo ORDER BY producto.precio ASC LIMIT 1;
+SELECT producto.nombre, producto.precio, fabricante.nombre FROM `producto` INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.codigo ORDER BY producto.precio DESC LIMIT 1;
+SELECT * FROM producto INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.CODIGO WHERE fabricante.nombre LIKE 'Lenovo';
+SELECT * FROM producto INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.CODIGO WHERE fabricante.nombre LIKE 'Crucial' AND producto.precio>200;
+SELECT * FROM producto INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.CODIGO WHERE fabricante.nombre LIKE 'Asus' OR fabricante.nombre LIKE 'Hewlett-Packard' OR fabricante.nombre LIKE 'Seagate';
+SELECT * FROM producto INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.CODIGO WHERE fabricante.nombre IN ('Seagate', 'Hewlett-packard', 'Asus');
+SELECT producto.nombre, producto.precio FROM producto INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.CODIGO WHERE fabricante.nombre LIKE '%e';
+SELECT producto.nombre, producto.precio FROM producto INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.CODIGO WHERE fabricante.nombre LIKE '%W%';
+SELECT producto.nombre, producto.precio, fabricante.nombre FROM producto INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.codigo WHERE producto.precio>=180 ORDER BY `producto`.`precio` DESC, `producto`.`nombre` ASC;
+SELECT DISTINCT fabricante.codigo, fabricante.nombre FROM fabricante INNER JOIN producto ON fabricante.codigo=producto.codigo_fabricante;
