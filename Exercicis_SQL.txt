@@ -51,3 +51,13 @@ SELECT producto.nombre, producto.precio FROM producto INNER JOIN fabricante ON p
 SELECT producto.nombre, producto.precio FROM producto INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.CODIGO WHERE fabricante.nombre LIKE '%W%';
 SELECT producto.nombre, producto.precio, fabricante.nombre FROM producto INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.codigo WHERE producto.precio>=180 ORDER BY `producto`.`precio` DESC, `producto`.`nombre` ASC;
 SELECT DISTINCT fabricante.codigo, fabricante.nombre FROM fabricante INNER JOIN producto ON fabricante.codigo=producto.codigo_fabricante;
+
+
+
+
+###1.1.5 CONSULTAS MULTITABLA###
+
+
+SELECT * FROM `fabricante` LEFT JOIN `producto` ON `fabricante`.`codigo`=`producto`.`codigo_fabricante`;
+SELECT * FROM `fabricante` LEFT JOIN `producto` ON `fabricante`.`codigo`=`producto`.`codigo_fabricante` WHERE `producto`.`codigo_fabricante` IS NULL;
+No pueden existir productos sin fabricante, ya que el campo codigo_fabricante no permite valores NULL, se puede crear un campo en la tabla fabricante para indicar productos sin fabricante asociado.
