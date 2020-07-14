@@ -61,3 +61,27 @@ SELECT DISTINCT fabricante.codigo, fabricante.nombre FROM fabricante INNER JOIN 
 SELECT * FROM `fabricante` LEFT JOIN `producto` ON `fabricante`.`codigo`=`producto`.`codigo_fabricante`;
 SELECT * FROM `fabricante` LEFT JOIN `producto` ON `fabricante`.`codigo`=`producto`.`codigo_fabricante` WHERE `producto`.`codigo_fabricante` IS NULL;
 No pueden existir productos sin fabricante, ya que el campo codigo_fabricante no permite valores NULL, se puede crear un campo en la tabla fabricante para indicar productos sin fabricante asociado.
+
+
+
+
+###1.1.5 CONSULTAS MULTITABLA###
+
+
+SELECT COUNT(codigo) FROM `producto`;
+SELECT COUNT(codigo) FROM `fabricante`;
+SELECT COUNT(DISTINCT (codigo_fabricante)) FROM `producto`;
+SELECT AVG(precio) FROM producto;
+SELECT MIN(precio) FROM `producto`;
+SELECT MAX(precio) FROM `producto`;
+SELECT nombre, precio FROM `producto` ORDER BY precio ASC LIMIT 1;
+SELECT nombre, precio FROM `producto` ORDER BY precio DESC LIMIT 1;
+SELECT SUM(precio) FROM `producto`;
+SELECT COUNT(producto.codigo) FROM `producto` INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.codigo WHERE fabricante.nombre LIKE 'ASUS';
+SELECT AVG(producto.precio) FROM `producto` INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.codigo WHERE fabricante.nombre LIKE 'ASUS';
+SELECT MIN(producto.precio) FROM `producto` INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.codigo WHERE fabricante.nombre LIKE 'ASUS';
+SELECT MAX(producto.precio) FROM `producto` INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.codigo WHERE fabricante.nombre LIKE 'ASUS';
+SELECT SUM(producto.precio) FROM `producto` INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.codigo WHERE fabricante.nombre LIKE 'ASUS';
+SELECT MAX(producto.precio),MIN(producto.precio),AVG(producto.precio),COUNT(producto.codigo) FROM `producto` INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.codigo WHERE fabricante.nombre LIKE 'CRUCIAL';
+SELECT fabricante.nombre, COUNT(producto.codigo) FROM `producto` INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.codigo GROUP BY fabricante.nombre
+SELECT fabricante.nombre,MAX(producto.precio),MIN(producto.precio),AVG(producto.precio) FROM `producto` INNER JOIN fabricante ON producto.codigo_fabricante=fabricante.codigo GROUP BY fabricante.nombre;
